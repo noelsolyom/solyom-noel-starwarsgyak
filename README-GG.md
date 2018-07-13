@@ -15,18 +15,18 @@ __A style.css__ file-t módosíthatod, az alkalmazás kinézetét testre szabhat
 
 ### Feladatok
 
-1. A kapott adatokat rendezd ár(cost_in_credits) szerint növekvő sorrendbe. (advanced bubble)
+1. DONE A kapott adatokat rendezd ár(cost_in_credits) szerint növekvő sorrendbe. (advanced bubble)
 
-2. Töröld az összes olyan adatot (tehát az objektumot a tömbből), ahol a consumables értéke NULL. Fontos, hogy ne csak undefined-ra állítsd a tömbelemet!!!
+2. DONE Töröld az összes olyan adatot (tehát az objektumot a tömbből), ahol a consumables értéke NULL. Fontos, hogy ne csak undefined-ra állítsd a tömbelemet!!!
 
-3. Az összes NULL értéket (minden objektum minden tulajdonságánál) módosítsd "unknown"-ra
+3. DONE Az összes NULL értéket (minden objektum minden tulajdonságánál) módosítsd "unknown"-ra
 
-4. A shapceship-list class-ű divbe jelenítsd meg az így kapott hajók adatait, beleérve a képét is.
+4. DONE A shapceship-list class-ű divbe jelenítsd meg az így kapott hajók adatait, beleérve a képét is.
 
 5. Ha valamelyik hajó adatait tartalmazó html elemre (pl.: a divre amibe benne van minden adata) rákattintunk,
 akkor töltse be az adott hajó adatait a one-spaceship class-ű div-be.
 
-6. Készítened kell egy statisztikát, mely a shapceship-list class-ű div aljára a következő adatokat fogja beleírni: 
+6. DONE Készítened kell egy statisztikát, mely a shapceship-list class-ű div aljára a következő adatokat fogja beleírni: 
 
 * Egy fős (crew = 1) legénységgel rendelkező hajók darabszáma.
 * A legnagyobb cargo_capacity-vel rendelkező hajó neve (model)

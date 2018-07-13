@@ -1,6 +1,25 @@
+@font-face {
+  font-family: starJedi;
+  src: url(/fonts/Starjedi.ttf);
+}
+
+@font-face {
+  font-family: starJediHollow;
+  src: url(/fonts/Starjhol.ttf);
+}
+
+
 body{
   margin:0;
   font-size: 16px;
+}
+
+h1 {
+  font-family: starJedi;
+  text-align: center;
+  font-size: 2em;
+  letter-spacing: 2px;
+  color: #fae01f;
 }
 
 div{
@@ -28,6 +47,7 @@ div{
 .spaceship-list{
   width: 100%;
   background:  #0b88c5;
+  background-image: url(/img/200_s.gif);
   overflow: auto
 }
 
@@ -54,10 +74,31 @@ div{
 
 #search-button{
   background: #fae01f;
+  font-family: "starJedi";
 }
 
 #search-button:hover{
   cursor: pointer;
+}
+
+table {
+  margin: 1em 0;
+  border: 1px solid #fae01f;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+table thead{
+  font-family: "starJedi";
+  color: #fae01f;
+  letter-spacing: 2px;
+  font-size: 1.5em;
+}
+table tr td{
+  width: 50%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #fae01f;
+  font-size: 1.5em;
 }
 
 @media(min-width:1200px){
