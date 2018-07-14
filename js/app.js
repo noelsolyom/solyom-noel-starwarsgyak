@@ -281,13 +281,23 @@ function successAjax(xhttp) {
 
   // Keresés model-re - sorbarendezés után
   document.querySelector('#search-button').onclick = function modelSort() {
-    var searchIn = userDatas.sort( function compareModelNames(a, b) {
-      var modelA = a.model.toLowerCase();
-      var modelB = b.model.toLowerCase();
-      if (modelA < modelB) {return -1;}
-      if (modelA > modelB) {return 1;}
-      return 0;
-    });
+    // Javított buborékrendezés objektumokkal feltöltött tömbre. STRING-RE!
+
+    var searchIn = userDatas.slice(0);
+    i = searchIn.length - 1;
+    j = 0;
+    while (i >= 2) {
+      var swap = 0;
+      for (j = 0; j < i; j++) {
+        var str1 = searchIn[j].model.toString();
+        var str2 = searchIn[j + 1].model.toString();
+        if (str1.localeCompare(str2) > 0) {
+          [searchIn[j], searchIn[j + 1]] = [searchIn[j + 1], searchIn[j]];
+          swap = j;
+        }
+      }
+      i = swap;
+    }
 
     var userSearch = document.querySelector('#search-text').value.toLowerCase();
     var foundModels = [];
