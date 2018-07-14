@@ -87,8 +87,13 @@ table thead{
   letter-spacing: 2px;
   font-size: 1.5em;
 }
-table tr td, .main-ul{
+table tr td{
   width: 50%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #fae01f;
+}
+
+.main-ul {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color: #fae01f;
 }
@@ -107,6 +112,16 @@ table tr td {
   background-color: #fae01f;
 }
 
+.main-ul {
+  margin-left: auto;
+  margin-right: auto;
+}
+  .ship-image-detail {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
 @media(min-width:1200px){
   .spaceship-list{
     width: 75%;
@@ -124,5 +139,11 @@ table tr td {
     position: absolute;
     bottom: 20px;
     left: 20px;
+  }
+
+  .main-ul {
+    margin-left: none;
+    margin-right: none;
+    
   }
 }
