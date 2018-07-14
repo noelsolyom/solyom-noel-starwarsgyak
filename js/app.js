@@ -201,7 +201,7 @@ function successAjax(xhttp) {
   // Adatok kiírása
 
   // Táblázat sorainak generálása
-  for (i = 0; i < userDatas.length; i++) {
+  for  (i = 0; i < userDatas.length; i++) {
     var cell; var row;
     var table = document.createElement('table');
     var thead = document.createElement('thead');
@@ -242,7 +242,8 @@ function successAjax(xhttp) {
 
     // Táblázat hozzáfűzése a spacehip-list osztályú elemhez
     table.className = 'ship-table';
-    table.classList.add('ship-' + userDatas[i].id);
+    table.classList.add('target-' + i);
+    table.addEventListener('click', eventHandler);
     spaceshipList.appendChild(table);
   }
 
@@ -301,5 +302,10 @@ function successAjax(xhttp) {
       showShipDetail(foundModels[0]);
     }
   };
+  function eventHandler() {
+    var targetId = this.classList[1];
+    targetId = targetId.replace('target-', '');
+    showShipDetail(userDatas[targetId]);
+  }
 }
 getData('/json/spaceships.json', successAjax);
