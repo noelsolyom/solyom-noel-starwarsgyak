@@ -3,12 +3,6 @@
   src: url(/fonts/Starjedi.ttf);
 }
 
-@font-face {
-  font-family: starJediHollow;
-  src: url(/fonts/Starjhol.ttf);
-}
-
-
 body{
   margin:0;
   font-size: 16px;
@@ -46,7 +40,6 @@ div{
 
 .spaceship-list{
   width: 100%;
-  background:  #0b88c5;
   background-image: url(/img/200_s.gif);
   overflow: auto
 }
@@ -94,11 +87,24 @@ table thead{
   letter-spacing: 2px;
   font-size: 1.5em;
 }
-table tr td{
+table tr td, .main-ul{
   width: 50%;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color: #fae01f;
+}
+
+table tr td {
   font-size: 1.5em;
+}
+
+.ship-detail {
+  font-family: "starJedi";
+  letter-spacing: 1px;
+  color:  #fae01f;
+}
+
+.fallback-image {
+  background-color: #fae01f;
 }
 
 @media(min-width:1200px){

@@ -1,10 +1,41 @@
 // ide deklaráljátok a függvényeket.
 
-var spaceshipList = document.querySelector('.spaceship-list');
-var searchBar = document.querySelector('#search-text');
+document.querySelector('title').innerHTML = 'STAR WARS vehicles';
 
-var searchButton = document.querySelector('#search-button');
-searchButton.setAttribute('onclick', 'searchSnipplet()');
+var spaceshipList = document.querySelector('.spaceship-list');
+var oneSpaceShip = document.querySelector('.one-spaceship');
+
+var shipDetail = document.createElement('div');
+shipDetail.className = 'ship-detail';
+shipDetail.innerHTML = '<h1>Details</h1>';
+oneSpaceShip.appendChild(shipDetail);
+
+
+var tableLeftCol = ['ID',
+  'Model',
+  'Cost in credits',
+  'Denomination',
+  'Crew',
+  'Passengers',
+  'Cargo capacity',
+  'Max atmosphering speed',
+  'Lengthiness',
+  'Manufacturer',
+  'Consumables'
+];
+
+var tableRightCol = ['id',
+  'model',
+  'cost_in_credits',
+  'denomination',
+  'crew',
+  'passengers',
+  'cargo_capacity',
+  'max_atmosphering_speed',
+  'lengthiness',
+  'manufacturer',
+  'consumables'
+];
 
 // Függvény, ami módosítja a paraméterként átadott objektum egy tulajdonságának a típusát numberre
 // Paraméter: Objektum, tulajdonság, új típus
@@ -74,9 +105,52 @@ function imageExists(imageUrl) {
   return http.status !== 404;
 }
 
+function showShipDetail(shipObject) {
+  if (document.querySelector('.main-ul')) {
+    var mainUl = document.querySelector('.main-ul');
+    mainUl.remove();
+  }
+
+  if (document.querySelector('.ship-image-detail')) {
+    var shipImage = document.querySelector('.ship-image-detail');
+    shipImage.remove();
+  }
+
+  mainUl = document.createElement('ul');
+  mainUl.className = 'main-ul';
+  for ( var i = 0; i < tableLeftCol.length; i++) {
+    var propertyLi = document.createElement('li');
+    propertyLi.className = 'property-li';
+    propertyLi.innerHTML = tableLeftCol[i];
+    var innerUl = document.createElement('ul');
+    var valueLi = document.createElement('li');
+    valueLi.className = 'value-li';
+    valueLi.innerHTML = shipObject[`${tableRightCol[i]}`];
+
+    innerUl.appendChild(valueLi);
+    propertyLi.appendChild(innerUl);
+    mainUl.appendChild(propertyLi);
+  }
+
+  shipDetail.appendChild(mainUl);
+
+  shipImage = document.createElement('img');
+  shipImage.className = 'ship-image-detail';
+  if (imageExists(`/img/${shipObject.image}`)) {
+    shipImage.setAttribute('src', `/img/${shipObject.image}`);
+    shipImage.setAttribute('alt', 'Image');
+  } else {
+    shipImage.setAttribute('src', '/img/957888-200.png');
+    shipImage.classList.add('fallback-image');
+    shipImage.setAttribute('alt', 'Image');
+  }
+
+  shipDetail.appendChild(shipImage);
+}
+
 function getData(url, callbackFunc) {
   var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
+  xhttp.onreadystatechange = function noIdea() {
     if (this.readyState === 4 && this.status === 200) {
       callbackFunc(this);
     }
@@ -125,102 +199,51 @@ function successAjax(xhttp) {
   advBubbleSortForArrayOfObjects(userDatas, 'cost_in_credits');
 
   // Adatok kiírása
+
+  // Táblázat sorainak generálása
   for (i = 0; i < userDatas.length; i++) {
     var cell; var row;
-
     var table = document.createElement('table');
-
     var thead = document.createElement('thead');
     table.appendChild(thead);
 
+    var tr = document.createElement('tr');
+    thead.appendChild(tr);
+
     var th = document.createElement('th');
     th.innerHTML = 'property';
-    thead.appendChild(th);
+    tr.appendChild(th);
 
     th = document.createElement('th');
     th.innerHTML = 'value';
-    thead.appendChild(th);
+    tr.appendChild(th);
 
-    row = table.insertRow(0);
-    cell = row.insertCell(0);
-    cell.innerHTML = 'ID';
-    cell = row.insertCell(1);
-    cell.innerHTML = userDatas[i].id;
+    var tbody = document.createElement('tbody');
+    table.appendChild(tbody);
 
-    row = table.insertRow(1);
-    cell = row.insertCell(0);
-    cell.innerHTML = 'Model';
-    cell = row.insertCell(1);
-    cell.innerHTML = userDatas[i].model;
+    for (j = 0; j < tableLeftCol.length; j++) {
+      row = tbody.insertRow(j);
+      cell = row.insertCell(0);
+      cell.innerHTML = tableLeftCol[j];
+      cell = row.insertCell(1);
+      cell.innerHTML = userDatas[i][`${tableRightCol[j]}`];
+    }
 
-    row = table.insertRow(2);
-    cell = row.insertCell(0);
-    cell.innerHTML = 'Cost in credits';
-    cell = row.insertCell(1);
-    cell.innerHTML = userDatas[i].cost_in_credits;
-
-    row = table.insertRow(3);
-    cell = row.insertCell(0);
-    cell.innerHTML = 'Denomination';
-    cell = row.insertCell(1);
-    cell.innerHTML = userDatas[i].denomination;
-
-    row = table.insertRow(4);
-    cell = row.insertCell(0);
-    cell.innerHTML = 'Crew';
-    cell = row.insertCell(1);
-    cell.innerHTML = userDatas[i].crew;
-
-    row = table.insertRow(5);
-    cell = row.insertCell(0);
-    cell.innerHTML = 'Passengers';
-    cell = row.insertCell(1);
-    cell.innerHTML = userDatas[i].passengers;
-
-    row = table.insertRow(6);
-    cell = row.insertCell(0);
-    cell.innerHTML = 'Cargo capacity';
-    cell = row.insertCell(1);
-    cell.innerHTML = userDatas[i].cargo_capacity;
-
-    row = table.insertRow(7);
-    cell = row.insertCell(0);
-    cell.innerHTML = 'Max atmosphering speed';
-    cell = row.insertCell(1);
-    cell.innerHTML = userDatas[i].max_atmosphering_speed;
-
-    row = table.insertRow(8);
-    cell = row.insertCell(0);
-    cell.innerHTML = 'Lengthiness';
-    cell = row.insertCell(1);
-    cell.innerHTML = userDatas[i].lengthiness;
-
-    row = table.insertRow(9);
-    cell = row.insertCell(0);
-    cell.innerHTML = 'Manufacturer';
-    cell = row.insertCell(1);
-    cell.innerHTML = userDatas[i].manufacturer;
-
-    row = table.insertRow(10);
-    cell = row.insertCell(0);
-    cell.innerHTML = 'Consumables';
-    cell = row.insertCell(1);
-    cell.innerHTML = userDatas[i].consumables;
-
-    row = table.insertRow(11);
+    row = tbody.insertRow(11);
     cell = row.insertCell(0);
     cell.innerHTML = 'Image';
     cell = row.insertCell(1);
-    if (imageExists(`/img/${userDatas[i].image}`)) {cell.innerHTML = `<img src=/img/${userDatas[i].image} >`; } else {cell.innerHTML = '<img src=/img/957888-200.png >';}
+    // Kép beszúrása
+    if (imageExists(`/img/${userDatas[i].image}`)) {
+      cell.innerHTML = `<img src=/img/${userDatas[i].image} alt="Image">`;
+    } else {
+      cell.innerHTML = '<img src=/img/957888-200.png alt="Image">';
+    }
 
+    // Táblázat hozzáfűzése a spacehip-list osztályú elemhez
     table.className = 'ship-table';
     table.classList.add('ship-' + userDatas[i].id);
-    table.addEventListener('click', eventOnClick);
     spaceshipList.appendChild(table);
-  }
-
-  function eventOnClick(ev) {
-    // Kattintási esemény leírása
   }
 
   // Statisztika
@@ -232,12 +255,11 @@ function successAjax(xhttp) {
       value: singleCrew},
     {text: 'Name of the ship having the maximal cargo capacity: ',
       value: maxCargoCapacity},
-    {text: 'Total amount of carrigeable passengers: ',
+    {text: 'Total amount of transportable passengers: ',
       value: sumPassengers},
     {text: "Name of the longest ship's image: ",
       value: maxLengthiness}
   ];
-
 
   // Statisztika kiírása
   var footerHeader = document.createElement('h1');
@@ -254,7 +276,30 @@ function successAjax(xhttp) {
   }
 
   statsTable.className = 'stats-table';
-  statsTable.addEventListener('click', eventOnClick);
   spaceshipList.appendChild(statsTable);
+
+  // Keresés model-re - sorbarendezés után
+  document.querySelector('#search-button').onclick = function modelSort() {
+    var searchIn = userDatas.sort( function compareModelNames(a, b) {
+      var modelA = a.model.toLowerCase();
+      var modelB = b.model.toLowerCase();
+      if (modelA < modelB) {return -1;}
+      if (modelA > modelB) {return 1;}
+      return 0;
+    });
+
+    var userSearch = document.querySelector('#search-text').value.toLowerCase();
+    var foundModels = [];
+    if (userSearch !== '') {
+      for (i = 0; i < searchIn.length; i++) {
+        if (searchIn[i].model.toLowerCase().indexOf(userSearch) > -1) {
+          foundModels.push(searchIn[i]);
+        }
+      }
+    }
+    if (foundModels.length > 0) {
+      showShipDetail(foundModels[0]);
+    }
+  };
 }
 getData('/json/spaceships.json', successAjax);
