@@ -10,7 +10,6 @@ shipDetail.className = 'ship-detail';
 shipDetail.innerHTML = '<h1>Details</h1>';
 oneSpaceShip.appendChild(shipDetail);
 
-
 var tableLeftCol = ['ID',
   'Model',
   'Cost in credits',
@@ -37,8 +36,6 @@ var tableRightCol = ['id',
   'consumables'
 ];
 
-// Függvény, ami módosítja a paraméterként átadott objektum egy tulajdonságának a típusát numberre
-// Paraméter: Objektum, tulajdonság, új típus
 // Megjegyzés: csak akkor módosít, ha a tulajdonság típusa nem egyezik meg az új típussal
 function setTypeOfObjectProperty(inputObject, propertyName) {
   if (typeof inputObject[`${propertyName}`] !== 'number' && inputObject[`${propertyName}`] !== null) {
@@ -46,27 +43,21 @@ function setTypeOfObjectProperty(inputObject, propertyName) {
   }
 }
 
-// FÜggvény,  ami törli a tömbből az adott elemet, ha az adott kulcs értéke megegyezik a keresési feltétellel
-// Bemeneti paraméterek: Tömb, ami obektumokkal van feltöltve; kulcs, ahol keres; érték, amit keres
-// Visszatérési érték: Módosított tömb, a törölt elemek nélkül.
-function deleteElementFromArrayOfObjects(inputArray, key, value) {
-  for (var i = 0; i < inputArray.length; i++) {
-    if (inputArray[i][key] === value) {
-      inputArray.splice(i, 1);
+function deleteElementFromArrayOfObjects(inputArrayofObjects, key, value) {
+  for (var i = 0; i < inputArrayofObjects.length; i++) {
+    if (inputArrayofObjects[i][key] === value) {
+      inputArrayofObjects.splice(i, 1);
       i -= 1;
     }
   }
 }
 
-// Függvény, ami felülírja a paraméterként átadott objektum adott tulajdonságának értékét.
-// Paraméter: objektum, tulajdonság, új érték.
 // MEGJEGYZÉS: sokkal elegánsabb lenne, ha az objektum prototípusánál vennénk fel új metódusként az alábbi függvényt.
 function overwriteValueOfObjectProprty(inpuObject, propertyName, newValue) {
   inpuObject[`${propertyName}`] = newValue;
 }
 
 // Javított buborékrendezés objektumokkal feltöltött tömbre. NUMBER-re!
-// Paraméter: tömb, objektum tulajdonsága.
 function advBubbleSortForArrayOfObjects(inputArray, propertyName) {
   var i = inputArray.length - 1; var j = 0;
   while (i >= 2) {
@@ -82,9 +73,6 @@ function advBubbleSortForArrayOfObjects(inputArray, propertyName) {
   }
 }
 
-// Maximum-kereső függvény objektumokkal feltöltött tömbre
-// Paraméter: tömb, objektum tulajdonság
-// Visszatérési érték: legnagyobb értékkel rendelkező objektum.
 function maxPropertyValue(inputArray, propertyName) {
   var objectToReturn = inputArray[0];
   for (var i = 1; i < inputArray.length; i++) {
@@ -95,8 +83,6 @@ function maxPropertyValue(inputArray, propertyName) {
   return objectToReturn;
 }
 
-// Függvény, ami leellenőrzi, hogy létezik e a kép
-// Paraméter: a kép elérési útvonala
 // Visszatérési érték: boolean
 function imageExists(imageUrl) {
   var http = new XMLHttpRequest();
@@ -118,6 +104,7 @@ function showShipDetail(shipObject) {
 
   mainUl = document.createElement('ul');
   mainUl.className = 'main-ul';
+
   for ( var i = 0; i < tableLeftCol.length; i++) {
     var propertyLi = document.createElement('li');
     propertyLi.className = 'property-li';
@@ -126,7 +113,6 @@ function showShipDetail(shipObject) {
     var valueLi = document.createElement('li');
     valueLi.className = 'value-li';
     valueLi.innerHTML = shipObject[`${tableRightCol[i]}`];
-
     innerUl.appendChild(valueLi);
     propertyLi.appendChild(innerUl);
     mainUl.appendChild(propertyLi);
@@ -199,7 +185,6 @@ function successAjax(xhttp) {
   advBubbleSortForArrayOfObjects(userDatas, 'cost_in_credits');
 
   // Adatok kiírása
-
   // Táblázat sorainak generálása
   for  (i = 0; i < userDatas.length; i++) {
     var cell; var row;
@@ -282,7 +267,6 @@ function successAjax(xhttp) {
   // Keresés model-re - sorbarendezés után
   document.querySelector('#search-button').onclick = function modelSort() {
     // Javított buborékrendezés objektumokkal feltöltött tömbre. STRING-RE!
-
     var searchIn = userDatas.slice(0);
     i = searchIn.length - 1;
     j = 0;
@@ -312,6 +296,7 @@ function successAjax(xhttp) {
       showShipDetail(foundModels[0]);
     }
   };
+
   function eventHandler() {
     var targetId = this.classList[1];
     targetId = targetId.replace('target-', '');
